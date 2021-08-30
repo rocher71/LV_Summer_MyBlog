@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -33,18 +34,37 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public String show(@PathVariable Long postId, @Valid CommentForm commentForm, Model model) {
+    public String show(@PathVariable Long postId,  Model model) {
         Post post = postService.findById(postId);
         model.addAttribute("post", post);
-        model.addAttribute("comments", commentService.findAll());
+        //model.addAttribute("comments", commentService.findAll());
+
+        List<Comment> comments = commentService.findByPostId(postId);
+
+        CommentForm commentForm = new CommentForm();
+        //commentForm.setContent(comments.getContent());
+        for(var comment : comments){
+            commentForm.setContent(comment.getContent());
+        }
+        model.addAttribute("comments", comments);
+        model.addAttribute("commentForm", commentForm);
 
         return "post/show";
     }
 
-    @PostMapping("/posts/{postId}")
-    public String newComment(@PathVariable Long postId, CommentForm commentForm){
-        Post post = postService.findById(postId);
+//    @GetMapping("/posts/{postId}")
+//    public String newComment(@PathVariable Long postId, @Valid CommentForm commentForm, Model model) {
+//        Post post = postService.findById(postId);
+//        model.addAttribute("post", post);
+//        model.addAttribute("commentForm", new CommentForm());
+//
+//        return "post/show";
+//    }
 
+    @PostMapping("/posts/{postId}")
+    public String newComment(@PathVariable Long postId, CommentForm commentForm, Model model){
+        Post post = postService.findById(postId);
+        model.addAttribute("post", post);
         User user = userService.findById(1L);
 
         Comment comment = Comment.builder()
@@ -54,7 +74,7 @@ public class PostController {
                 .build();
         commentService.save(comment);
 
-        return "redirect:/post/show";
+        return "redirect:/posts/{postId}";
     }
 
     @GetMapping("/new-post")

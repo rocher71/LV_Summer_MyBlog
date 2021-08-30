@@ -14,10 +14,10 @@
     </thead>
     <tbody>
     <tr th:each="comment : ${comments}">
-        <!--<td scope="row"><a th:href="@{/posts/{id}(id = ${post.id})}"><span th:text="${post.id}"></span></a></td>-->
+        <td scope="row"><span th:text="${comment.id}"></span></a></td>
         <td><span th:text="${comment.content}"></span></td>
         <td><span th:text="${comment.getUser()?.getName()}"></span></td>
-       <!-- <td><a th:href="@{/edit-post/{id}(id = ${post.id})}">수정하기</a></td>-->
+        <td></span>수정하기</span></td>
     </tr>
     </tbody>
 </table>

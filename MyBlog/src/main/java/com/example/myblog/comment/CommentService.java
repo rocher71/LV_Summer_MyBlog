@@ -23,6 +23,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
+    public List<Comment> findByPostId(Long postId){
+        return commentRepository.findByPostId(postId).orElseThrow(RuntimeException::new);
+    }
+
     public void save(Comment comment){
         commentRepository.save(comment);
     }
@@ -33,4 +37,6 @@ public class CommentService {
 
         comment.setContent(commentForm.getContent());
     }
+
+
 }
