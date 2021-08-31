@@ -27,7 +27,7 @@ ID : <p th:text="${post.id}"></p>
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">ID</th>
+        <th scope="col">Comment ID</th>
         <th scope="col">내용</th>
         <th scope="col">작성자</th>
         <th scope="col">수정하기</th>
@@ -35,10 +35,10 @@ ID : <p th:text="${post.id}"></p>
     </thead>
     <tbody>
     <tr th:each="comment : ${comments}">
-        <td scope="row"><span th:text="${comment.id}"></span></a></td>
+        <td scope="row"><span th:text="${comment.id}"></span></td>
         <td><span th:text="${comment.content}"></span></td>
         <td><span th:text="${comment.getUser()?.getName()}"></span></td>
-        <td></span>수정하기</span></td>
+        <td><a th:href="@{/comments/{commentId}(commentId = ${comment.getId()})}">수정하기</a></td>
     </tr>
     </tbody>
 </table>

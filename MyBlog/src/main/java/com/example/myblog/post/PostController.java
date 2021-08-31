@@ -26,23 +26,21 @@ public class PostController {
     private final UserService userService;
     private final CommentService commentService;
 
-    @GetMapping("/posts")
+    @GetMapping("/posts") //글 목록
     public String index(Model model) {
         model.addAttribute("posts", postService.findAll());
 
         return "post/index";
     }
 
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/posts/{postId}") //글 상세보기(댓글 보여주기)
     public String show(@PathVariable Long postId,  Model model) {
         Post post = postService.findById(postId);
         model.addAttribute("post", post);
-        //model.addAttribute("comments", commentService.findAll());
 
         List<Comment> comments = commentService.findByPostId(postId);
 
         CommentForm commentForm = new CommentForm();
-        //commentForm.setContent(comments.getContent());
         for(var comment : comments){
             commentForm.setContent(comment.getContent());
         }
@@ -52,16 +50,8 @@ public class PostController {
         return "post/show";
     }
 
-//    @GetMapping("/posts/{postId}")
-//    public String newComment(@PathVariable Long postId, @Valid CommentForm commentForm, Model model) {
-//        Post post = postService.findById(postId);
-//        model.addAttribute("post", post);
-//        model.addAttribute("commentForm", new CommentForm());
-//
-//        return "post/show";
-//    }
 
-    @PostMapping("/posts/{postId}")
+    @PostMapping("/posts/{postId}") //글 상세보기 페이지에서 댓글 작성하기
     public String newComment(@PathVariable Long postId, CommentForm commentForm, Model model){
         Post post = postService.findById(postId);
         model.addAttribute("post", post);
@@ -76,6 +66,7 @@ public class PostController {
 
         return "redirect:/posts/{postId}";
     }
+
 
     @GetMapping("/new-post")
     public String newPost(Model model) {

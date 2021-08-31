@@ -17,7 +17,7 @@
         <td scope="row"><span th:text="${comment.id}"></span></a></td>
         <td><span th:text="${comment.content}"></span></td>
         <td><span th:text="${comment.getUser()?.getName()}"></span></td>
-        <td></span>수정하기</span></td>
+        <td><a th:href="@{/comments/{commentId}(commentId = ${comment.getId()})}">수정하기</a></td>
     </tr>
     </tbody>
 </table>
