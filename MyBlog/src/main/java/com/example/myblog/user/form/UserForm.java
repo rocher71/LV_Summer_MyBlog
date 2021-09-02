@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserForm {
+public class    UserForm {
     private Long id;
     @NotBlank
     private String name;

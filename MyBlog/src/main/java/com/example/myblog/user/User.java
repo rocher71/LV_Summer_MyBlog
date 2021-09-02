@@ -20,6 +20,9 @@ public class User {
     private String name;
     private String type;
 
+    private String userId;
+    private String password;
+
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
