@@ -30,13 +30,6 @@ public class CommentController {
         return "comment/index";
     }
 
-//    @PostMapping("/comments")
-//    public String writeComment(CommentForm commentForm){
-//       // model.addAttribute("comments", commentService.findAll());
-//
-//        return "comment/index";
-//    }
-
     @GetMapping("/comments/{commentId}")
     public String edit(@PathVariable Long commentId, Model model){
         Comment comment = commentService.findById(commentId);
@@ -53,8 +46,9 @@ public class CommentController {
 
         commentService.update(commentId, commentForm);
 
+        Long postId = commentService.findById(commentId).getPost().getId();
 
-        return "redirect:/comments";
+        return "redirect:/posts/"+postId;
         //return "redirect:/posts/{postId}"; 이렇게 하고싶은데 계속 에러나면서 안됩니다...ㅜㅠ
     }
 

@@ -11,8 +11,9 @@ public class UserAccount extends User {
 
     private com.example.myblog.user.User user;
 
+    //form에서 받아오는 password
     public UserAccount(com.example.myblog.user.User user){
-        super(user.getUsername(), user.getPassword(), List.of(new SimpleGrantedAuthority(user.getType())));
+        super(user.getUserId(), user.getPassword(), List.of(new SimpleGrantedAuthority(user.getType())));
         this.user = user;
     }
 }

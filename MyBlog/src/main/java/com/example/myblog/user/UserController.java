@@ -1,5 +1,6 @@
 package com.example.myblog.user;
 
+import com.example.myblog.user.form.SignUpForm;
 import com.example.myblog.user.form.UserForm;
 import com.example.myblog.user.validator.UserFormValidator;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,29 @@ public class UserController {
     @InitBinder("userForm")
     public void initBinderUserForm(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(userFormValidator);
+    }
+
+    //로그인 페이지
+    @GetMapping("/login")
+    public String login(){
+
+        return "user/login";
+    }
+
+    //회원가입
+    @GetMapping("/sign-up")
+    public String signUp(Model model){
+        model.addAttribute("signUpForm", new SignUpForm());
+
+        return "user/sign-up";
+    }
+
+    @PostMapping("/sign-up")
+    public String signUp(SignUpForm signUpForm){
+        User user = userService.createUser(signUpForm);
+        userService.login(user);
+
+        return "home";
     }
 
     // 유저 목록 조회
@@ -63,14 +87,14 @@ public class UserController {
             return "user/new";
         }
 
-        User user = new User(
-                userForm.getId(),
-                userForm.getName(),
-                userForm.getType(),
-                new ArrayList<>(),
-                new ArrayList<>() //comment
-        );
-        userService.save(user);
+//        User user = new User(
+//                userForm.getId(),
+//                userForm.getName(),
+//                userForm.getType(),
+//                new ArrayList<>(),
+//                new ArrayList<>() //comment
+//        );
+        //userService.save(user);
 
         return "redirect:/users";
     }
