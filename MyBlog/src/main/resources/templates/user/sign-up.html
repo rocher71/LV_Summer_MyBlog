@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+
+<body>
+<form method="post" th:action="@{/sign-up}" th:object="${signUpForm}">
+    <label for="userId">UserId</label>
+    <input type="text" name="userId" id = "userId" th:field="*{userId}">
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" th:field="*{password}">
+
+    <label for="name">name</label>
+    <input type="text" name="name" id="name" th:field="*{name}">
+
+    <button type="submit">회원가입</button>
+
+</form>
+</body>
+</html>

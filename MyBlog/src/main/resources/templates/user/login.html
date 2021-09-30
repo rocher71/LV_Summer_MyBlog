@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<form method="post" th:action="@{/login}">
+    <label for="userId">UserId</label>
+    <input type="text" name="userId" id="userId">
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+
+    <button type="submit">로그인</button>
+
+
+<!--    <textarea type="text" rows="3" cols="50" name="content" id="content" ></textarea>-->
+<!--    <button type="submit" name="submit" value="value" >작성하기</button>-->
+</form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<p>Post 상세 조회</p>
+
+ID : <p th:text="${post.id}"></p>
+제목 : <p th:text="${post.title}"></p>
+상세 내용 : <p th:text="${post.description}"></p>
+작성자 : <p th:text="${post.getUser()?.getName()}"></p>
+
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">타이틀</th>-->
+<!--            <th scope="col">디스크립션</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="post : ${user.getPosts()}">-->
+<!--            <td><span th:text="${post.title}"></span></td>-->
+<!--            <td><span th:text="${post.description}"></span></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Comment ID</th>
+        <th scope="col">내용</th>
+        <th scope="col">작성자</th>
+        <th scope="col">수정하기</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comment : ${comments}">
+        <td scope="row"><span th:text="${comment.id}"></span></td>
+        <td><span th:text="${comment.content}"></span></td>
+        <td><span th:text="${comment.getUser()?.getName()}"></span></td>
+        <td><a th:href="@{/comments/{commentId}(commentId = ${comment.getId()})}">수정하기</a></td>
+    </tr>
+    </tbody>
+</table>
+
+댓글 작성하기 :
+<br>
+<form method="post" th:action="@{/posts/{id}(id = ${post.id})}" th:object="${commentForm}">
+    <textarea type="text" rows="3" cols="50" name="content" id="content" ></textarea>
+    <button type="submit" name="submit" value="value" >작성하기</button>
+</form>
+
+
+</body>
+</html>

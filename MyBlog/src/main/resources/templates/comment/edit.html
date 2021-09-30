@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>editComment</title>
+</head>
+<body>
+댓글 수정하기 :
+<br>
+<form method="post" th:action="@{/comments/{id}(id = ${comment.id})}" th:object="${commentForm}">
+    <textarea type="text" rows="3" cols="50" name="content" id="content"
+    th:text="${comment.getContent()}" th:field="*{content}"></textarea>
+
+    <button type="submit" name="submit" value="value" >수정하기</button>
+</form>
+
+</body>
+</html>
